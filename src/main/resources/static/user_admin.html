@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <script src="scripts/main.js" type="module" ></script>
+    <link rel="stylesheet" href="styles/regDys.css">
+</head>
+<body>
+    <div style="margin: auto; display: flex; flex-direction: column; width: 50%; gap: 1em; padding: 2em;">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username">
+        <label for="pass">Password</label>
+        <input type="password" name="pass" id="pass">
+        <button id="add_user">Add user</button> 
+    </div>
+    
+    <div style="margin: auto; display: flex; flex-direction: column; width: 50%; gap: 1em; padding: 2em;">
+        <div style="display: flex; flex-direction: row; gap: 2em; justify-content: left">
+            <label for="map_width">map_width</label>
+            <input min="4" max="20" type="range" name="map_width" id="map_width" oninput="this.nextElementSibling.value = this.value">
+            <output id="num"></output>
+        </div>
+        <div style="display: flex; flex-direction: row; gap: 2em; justify-content: left">
+            <label for="map_height">map_height</label>
+            <input min="4" max="20" type="range" name="map_height" id="map_height" oninput="this.nextElementSibling.value = this.value">
+            <output id="num"></output>
+        </div>
+        <div style="display: flex; flex-direction: row; gap: 2em; justify-content: left">
+            <label for="map_mines">map_mines</label>
+            <input min="4" max="20" type="range" name="map_mines" id="map_mines" }%`" oninput="this.nextElementSibling.value = `${this.value}%`">
+            <output id="num"></output>
+        </div>
+        
+        <button id="add_map">Add map</button> 
+    </div>
+
+    <div style="margin: auto; display: flex; flex-direction: column; width: 50%; gap: 1em; padding: 2em;">
+    <button id="clear_users">clear_users</button>
+    <button id="clear_maps">clear_maps</button>
+    <button id="clear_all">clear_all</button>
+    </div>
+
+
+</body>
+</html>
