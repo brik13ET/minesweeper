@@ -16,6 +16,7 @@ public class WWWController {
     @GetMapping("/")
     public RedirectView redirIndex(RedirectAttributes attr)
     {
+        attr.addFlashAttribute("flashAttribute", "redirectWithRedirectView");
         return new RedirectView("/reg.html");
     }
 }

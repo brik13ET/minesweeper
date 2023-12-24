@@ -60,9 +60,11 @@ public class APIController {
     }
     @PostMapping("/newGameField")
     @ResponseBody
-    ResponseEntity  newGameField()
+    ResponseEntity  newGameField(Integer width, Integer height, Integer mines)
     {
-        return new ResponseEntity(HttpStatus.NOT_IMPLEMENTED);
+        fieldService.newGameField(width, height, mines);
+        fieldService.findById()
+        return
     }
     @PostMapping("/newUser")
     @ResponseBody

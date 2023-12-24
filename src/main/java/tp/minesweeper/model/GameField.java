@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.ParameterOutOfBoundsException;
 @Entity
 @Table(name = "game_field")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+
 public class GameField {
 
     @Id
@@ -24,7 +25,6 @@ public class GameField {
     @Getter
     protected int mines;
     public GameField(
-        int id,
         int width,
         int height,
         int mines
@@ -44,7 +44,6 @@ public class GameField {
                 new Throwable()
             );
         }
-        this.id     = id;
         this.width  = width;
         this.height = height;
         this.mines  = mines;

@@ -37,10 +37,17 @@ class MinesweeperApplicationTests {
 
 
 	@Test
+	void coffee_tea() throws Exception {
+		this.mockMvc.perform(get("/make_coffee"))
+				.andDo(print())
+				.andExpect(status().isIAmATeapot());
+	}
+
+	@Test
 	void staticRedirectIndex() throws Exception {
 		this.mockMvc.perform(get("/"))
 				.andDo(print())
-				.andExpect(forwardedUrl("/index.html"));
+				.andExpect(redirectedUrl("/reg.html"));
 	}
 	// Post /newGameField
 	@Test

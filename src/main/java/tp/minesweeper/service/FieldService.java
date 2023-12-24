@@ -29,4 +29,10 @@ public class FieldService {
     {
         return userFieldRepository.findAllByUid(usr.getId());
     }
+
+    public GameField newGameField(int width, int height, int mines)
+    {
+        var ret = gameFieldRepository.save(new GameField(width, height, mines));
+        return ret;
+    }
 }
