@@ -11,6 +11,7 @@ import lombok.*;
 @Table(name = "user_cell")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class UserCell {
 
 	@Id
@@ -20,5 +21,5 @@ public class UserCell {
 
 	@Getter
 	@Setter
-	boolean value;
+	boolean opened;
 }

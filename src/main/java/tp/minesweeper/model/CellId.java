@@ -10,6 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class CellId implements Serializable
 {
 	@Getter

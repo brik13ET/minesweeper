@@ -20,6 +20,7 @@ public class User {
     @Setter
     private String password;
 
+    @Builder
     public User(String login, String password)
     {
         this.login = login;

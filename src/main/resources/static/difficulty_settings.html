@@ -6,6 +6,7 @@
     <title>Admin Panel</title>
     <script src="scripts/main.js" type="module"></script>
     <link rel="stylesheet" href="styles/regDys.css">
+    <script type="module" src="scripts/guard.js"></script>
 </head>
 <body>
     <h1 title="Форма уровня сложности">Настройка уровня сложности</h1>
@@ -35,7 +36,7 @@
             <input min="0" max="3" type="range" name="lifes" id="lifes" oninput="this.nextElementSibling.value = `${this.value}`">
             <output></output>
         </div>
-        <a class="button" href="Menu.html" id="Save_map"> Сохранить </a>
+        <a class="button" class="back" id="Save_map"> Сохранить </a>
     </div>
 </body>
 </html>

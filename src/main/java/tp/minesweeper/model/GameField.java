@@ -4,14 +4,15 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.repository.query.ParameterOutOfBoundsException;
 
+import java.util.Arrays;
+
 @Entity
 @Table(name = "game_field")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-
 public class GameField {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue()
     @Getter
     protected int id;
 
@@ -24,6 +25,8 @@ public class GameField {
 
     @Getter
     protected int mines;
+
+    @Builder
     public GameField(
         int width,
         int height,
@@ -47,5 +50,22 @@ public class GameField {
         this.width  = width;
         this.height = height;
         this.mines  = mines;
+    }
+
+    public GameField(int width, int height, GameCell[] mines)
+    {
+        if (mines.length != width * height)
+            throw new ParameterOutOfBoundsException("Количество ячеек на поле не равно площади поля", new Throwable());
+
+        var mines_count =
+                Arrays.stream(mines)
+                    .filter(gameCell -> gameCell.getPlanted() )
+                    .count();
+        if (
+                mines_count > width * height * 0.2 ||
+                mines_count < width * height * 0.04
+        )
+            throw new ParameterOutOfBoundsException("Количество заминированных ячеек на поле не входит в диапазон (4% - 20%)", new Throwable());
+
     }
 }

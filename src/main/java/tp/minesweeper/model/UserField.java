@@ -22,31 +22,30 @@ public class UserField {
     @Setter
     protected int mines;
 
+    @Builder
     public UserField(
-        User user,
-        GameField gameField,
-        int width,
-        int height,
-        int mines
-    )
-    {
+            User user,
+            GameField gameField,
+            int width,
+            int height,
+            int mines
+    ) {
         if (
-            width  > 20||
-            width  < 4 ||
-            height > 20||
-            height < 4 ||
-            mines > (width * height * 0.2) ||
-            mines < (width * height * 0.04)
-        )
-        {
+                width > 20 ||
+                        width < 4 ||
+                        height > 20 ||
+                        height < 4 ||
+                        mines > (width * height * 0.2) ||
+                        mines < (width * height * 0.04)
+        ) {
             throw new ParameterOutOfBoundsException(
-                "Один из параметров поля не находится в диапазоне",
-                new Throwable()
+                    "Один из параметров поля не находится в диапазоне",
+                    new Throwable()
             );
         }
-        this.id = new UserFieldId(gameField,user);
-        this.width  = width;
+        this.id = new UserFieldId(gameField, user);
+        this.width = width;
         this.height = height;
-        this.mines  = mines;
+        this.mines = mines;
     }
 }

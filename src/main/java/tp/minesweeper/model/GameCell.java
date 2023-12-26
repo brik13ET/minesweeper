@@ -8,6 +8,7 @@ import lombok.*;
 @Table(name = "game_cell")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class GameCell {
 
 	@Id
@@ -18,5 +19,5 @@ public class GameCell {
 
 	@Getter
 	@Setter
-	boolean value;
+	Boolean planted;
 }

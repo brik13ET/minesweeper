@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 // Only UserCell allower to transmit
-public class CellDto {
+public class UserCellDto {
     int posX, posY;
-    boolean value;
+    boolean opened;
 }

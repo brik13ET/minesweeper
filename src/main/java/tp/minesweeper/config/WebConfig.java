@@ -20,6 +20,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         WebMvcConfigurer.super.configurePathMatch(configurer);
-        configurer.setUseSuffixPatternMatch(false);
+//        configurer.setUseSuffixPatternMatch(false);
     }
 }

@@ -1,7 +1,13 @@
 import { DB, User, GameField, Cell } from './pseudo.js';
 
 var db = new DB();
-var uid = localStorage.getItem('user_id');
+let uid = localStorage.getItem('user_id');
+if (uid == null){
+	window.location.href = "reg.html"
+
+	throw "can`t get user id";
+}
+
 function addElem(dom_parent, dom_child)
 {
     dom_parent.appendChild(dom_child);
