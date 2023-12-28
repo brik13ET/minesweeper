@@ -17,7 +17,8 @@ var heightSlider= document.getElementById("map_height");
 var minesSlider = document.getElementById("map_mines" );
 var autoFill    = document.getElementById("autoFill"  );
 var gameBoard   = document.getElementById("minefield" );
-var saveBoard   = document.getElementById("save"      );
+var save        = document.getElementById("save"      );
+var back        = document.getElementById("back"      );
 
 if (widthSlider)
     widthSlider .addEventListener("input" ,updateWidthValue  );
@@ -29,6 +30,8 @@ if (autoFill)
     autoFill    .addEventListener("click", autofillMines     );
 if (save)
     save        .addEventListener("click", sendBoard         );
+if (back)
+    back        .addEventListener("click", () => { history.back(); });
 
 var numOfMines= 10;
 var width     = 10;

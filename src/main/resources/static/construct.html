@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,33 +8,41 @@
     <link rel="stylesheet" href="styles/construct.css">
     <title>Конструктор</title>
 </head>
+
 <body>
-    <div class="container">
-        <div class="card-left">
-            <div style="display: flex; flex-direction: row; gap: 2em; justify-content: left"></div>
+    <div class="row">
+        <div class="col">
+            <div class="row">
                 <input type="button" id="autoFill" value="Автоматически заполненить">
             </div>
-            <div style="display: flex; flex-direction: row; gap: 2em; justify-content: left">
+            <div class="row">
                 <label for="map_width">Ширина игрового поля</label>
-                <input min="4" max="20" type="range" name="map_width" id="map_width" oninput="this.nextElementSibling.value = this.value">
+                <input min="4" max="20" type="range" name="map_width" id="map_width"
+                    oninput="this.nextElementSibling.value = this.value">
                 <output id="widthValue"></output>
             </div>
-            <div style="display: flex; flex-direction: row; gap: 2em; justify-content: left">
+            <div class="row">
                 <label for="map_height">Высота игрового поля</label>
-                <input min="4" max="20" type="range" name="map_height" id="map_height" oninput="this.nextElementSibling.value = this.value">
+                <input min="4" max="20" type="range" name="map_height" id="map_height"
+                    oninput="this.nextElementSibling.value = this.value">
                 <output id="heightValue"></output>
             </div>
-            <div style="display: flex; flex-direction: row; gap: 2em; justify-content: left">
+            <div class="row">
                 <label for="map_mines">Количество мин</label>
-                <input min="4" max="20" type="range" name="map_mines" id="map_mines" oninput="this.nextElementSibling.value = this.value">
+                <input min="4" max="20" type="range" name="map_mines" id="map_mines"
+                    oninput="this.nextElementSibling.value = this.value">
                 <output id="minesValue"></output>
                 <table id="gameBoard"></table>
             </div>
-            <button id="save">Сохранить</button>
+            <div class="row">
+                <button id="back" class="col">Вернутся</button>
+                <button id="save" class="col">Сохранить</button>
+            </div>
         </div>
-        <div class="card-right">
+        <div class="col">
             <div id="minefield"></div>
         </div>
     </div>
 </body>
+
 </html>

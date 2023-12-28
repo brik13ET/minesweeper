@@ -58,28 +58,38 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-.container
+.row
 {
     display: flex;
     flex-direction: row;
-    gap: 1em;
+    min-height: 20%;
 }
-
-
-.card-left, .card-right
+.col
+{
+    display: flex;
+    flex-direction: column;
+    min-width: 30%;
+}
+.row, .col
 {
     flex: 1;
-    position: relative;
-    margin-top: auto;
-    margin-bottom: auto;
-    flex-direction: column;
+    gap: 1em;
+    padding: 1em;
+}
+td
+{
+    min-width: 1.5em;
+    min-height: 1.5em;
+    text-align: center;   
 }
 
-.card-left{
+#minefield{
     margin: auto;
 }
 
-.card-right{
-    margin: auto;
-
+button
+{
+    font: sans-serif 2em bold;
+    text-align: center;
+    padding: 1em;
 }

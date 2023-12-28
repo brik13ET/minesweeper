@@ -97,22 +97,22 @@ export class DB {
     Get /getGameFieldParams
     */
     async isFieldExists(field_id) {
-        let responce = await fetch(`http://localhost:8080/isFieldExists?field_id=${field_id}`);
+        let responce = await fetch(`isFieldExists?field_id=${field_id}`);
         return await responce.json();
     }
 
     async isUserExists(login) {
-        let responce = await fetch(`http://localhost:8080/isUserExists?login=${login}`);
+        let responce = await fetch(`isUserExists?login=${login}`);
         return await responce.json();
     }
 
     async isCorrectPass(login, pass) {
-        let responce = await fetch(`http://localhost:8080/isCorrectPass?login=${login}&pass=${pass}`);
+        let responce = await fetch(`isCorrectPass?login=${login}&pass=${pass}`);
         return await responce.json();
     }
 
     async newGameField(width, height, mines) {
-        let responce = await fetch("http://localhost:8080/newGameField", {
+        let responce = await fetch("newGameField", {
             method: "POST",
             body: JSON.stringify({
                 width: width,
@@ -128,23 +128,23 @@ export class DB {
     }
 
     async getGameMapsIds() {
-        let responce = await fetch("http://localhost:8080/getGameMapsIds?MapsCount=10");
+        let responce = await fetch("getGameMapsIds?MapsCount=10");
         return await responce.json();
     }
 
     async getUserSaves(uid) {
-        let responce = await fetch(`http://localhost:8080/getUserSaves?uid=${uid}`);
+        let responce = await fetch(`getUserSaves?uid=${uid}`);
         return await responce.json();
     }
 
     async getUserCell(uid, field_id, pos_x, pos_y) {
-        let responce = await fetch(`http://localhost:8080/getUserCell?uid=${uid}&&field_id=${field_id}&pos_x=${pos_x}&pos_y=${pos_y}`);
+        let responce = await fetch(`getUserCell?uid=${uid}&&field_id=${field_id}&pos_x=${pos_x}&pos_y=${pos_y}`);
         return await responce.json();
     }
 
     async newUser(login, pass) {
         let responce = await fetch(
-            "http://localhost:8080/newUser", {
+            "newUser", {
             method: "POST",
             body: JSON.stringify({
                 login: login,
@@ -156,12 +156,12 @@ export class DB {
             }
         });
         
-        return await responce.json();
+        return await responce.status();
     }
 
     async newUserField(field_id, user_id) {
         let responce = await fetch(
-            "http://localhost:8080/newUserField", {
+            "newUserField", {
             method: "POST",
             body: JSON.stringify({
                 field_id: field_id,
@@ -178,17 +178,17 @@ export class DB {
 
     async getUserLogin(user_id) {
 
-        let responce = await fetch(`http://localhost:8080/getUserLogin?uid=${user_id}`);
+        let responce = await fetch(`getUserLogin?uid=${user_id}`);
         return await responce.text();
     }
 
     async getUserId(login, pass) {
-        let responce = await fetch(`http://localhost:8080/getUserId?login=${login}&pass=${pass}`);
+        let responce = await fetch(`getUserId?login=${login}&pass=${pass}`);
         return await responce.json();
     }
 
     async getGameFieldParams(field_id) {
-        let responce = await fetch(`http://localhost:8080/getGameFieldParams?field_id=%{field_id}`);
+        let responce = await fetch(`getGameFieldParams?field_id=%{field_id}`);
         let data = await responce.json();
         return {
             id:     data.id,

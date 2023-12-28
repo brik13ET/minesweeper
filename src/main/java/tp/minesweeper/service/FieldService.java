@@ -7,9 +7,11 @@ import tp.minesweeper.repository.GameCellRepository;
 import tp.minesweeper.repository.GameFieldRepository;
 import tp.minesweeper.repository.UserFieldRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -40,23 +42,21 @@ public class FieldService {
     {
         int pCount = (int)Arrays.stream(cells).filter( aBoolean -> aBoolean ).count();
         var gf = gameFieldRepository.save(new GameField(width, height, pCount));
-        int i = 0;
-        Arrays.stream(cells)
-                .forEach(
-                        gameCell ->
-                                gameCellRepository.save(
-                                        GameCell.builder()
-                                                .planted(gameCell)
-                                                .cellId(
-                                                        CellId.builder()
-                                                                .fieldId(gf.getId())
-                                                                .posX( i % width)
-                                                                .posY( i / width)
-                                                                .build()
-                                                )
-                                                .build()
-                                )
-                );
+        for (int i = 0; i < cells.length; i++)
+        {
+            var gameCell = cells[i];
+            var elem = GameCell.builder()
+                .planted(gameCell)
+                .cellId(
+                    CellId.builder()
+                        .fieldId(gf.getId())
+                        .posX( i % width)
+                        .posY( i / width)
+                        .build()
+                )
+                .build();
+            gameCellRepository.save(elem);
+        }
         return gf;
     }
 }

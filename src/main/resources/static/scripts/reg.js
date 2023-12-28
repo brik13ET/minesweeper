@@ -49,9 +49,8 @@ if (submit)
                     return db.newUser(loginUser, passwordUser);
                 })
             .then(
-                resp => {
-                    return db.isUserExists(loginUser);
-                })
+                db.isUserExists(loginUser)
+            )
             .then(
                 isExistsNew => {
                     if (isExistsNew)
@@ -62,31 +61,28 @@ if (submit1)
     submit1.addEventListener('click', () => {
         const loginUser = login.value;
         const passwordUser = password.value;
-        let isExists = undefined;
         db.isUserExists(loginUser)
             .then(responce => {
-                if (!JSON.parse(responce)) {
+                if (!responce) {
                     alert('Пользователь с таким логином не найден');
                     throw new Error('Пользователь с таким логином не найден');
                 }
+                return db.isCorrectPass(loginUser, passwordUser);
             })
-            .then(_ => {
-                db.isCorrectPass(loginUser, passwordUser)
-                    .then(responce => {
-                        if (JSON.parse(responce)) {
-                            db.getUserId(loginUser, passwordUser)
-                                .then(responce => {
-                                    localStorage.setItem('user_id', JSON.parse(responce));
-                                    alert('Вы успешно вошли');
-                                    if (uid != 0)
-                                        window.location.href = 'Menu.html';
-                                    else
-                                        window.location.href = 'admin_menu.html'
-                                });
-                        } else {
-                            alert('Неверное имя пользователя или пароль');
-                            throw new Error('Неверное имя пользователя или пароль');
-                        }
-                    })
-            })
+            .then(responce => {
+                if (responce) {
+                    db.getUserId(loginUser, passwordUser)
+                        .then(responce => {
+                            localStorage.setItem('user_id', responce);
+                            alert('Вы успешно вошли');
+                            if (responce != 0)
+                                window.location.href = 'Menu.html';
+                            else
+                                window.location.href = 'admin_menu.html'
+                        });
+                } else {
+                    alert('Неверное имя пользователя или пароль');
+                    throw new Error('Неверное имя пользователя или пароль');
+                }
+            });
     });

@@ -8,28 +8,49 @@ if (uid == null){
 	throw "can`t get user id";
 }
 
+var nxt = document.querySelector("#mext");
+var prv = document.querySelector("#back");
+
+prv.addEventListener(
+    "click",
+    e => {
+    history.back();
+});
+
 function addElem(dom_parent, dom_child)
 {
     dom_parent.appendChild(dom_child);
 }
-var maps = db.getGameMapsIds();
-var tab_save = document.getElementById("game_tab");
-for (let i = 0; i < maps.length; i++) {
-    const element       = db.getGameFieldParams(maps[i]);
-    var dom_row         = document.createElement('tr');
-    var dom_id          = document.createElement('td');
-    var dom_width       = document.createElement('td');
-    var dom_height      = document.createElement('td');
-    var dom_mines       = document.createElement('td');
+db.getGameMapsIds()
+.then( maps => {
+    var tab_save = document.getElementById("game_tab");
+    for (let i = 0; i < maps.length; i++) {
+        db.getGameFieldParams(maps[i])
+            .then(element =>
+            {
+                var dom_row         = document.createElement('tr');
+                var dom_id          = document.createElement('td');
+                var dom_width       = document.createElement('td');
+                var dom_height      = document.createElement('td');
+                var dom_mines       = document.createElement('td');
 
-    dom_id.value      = element.id;
-    dom_width.value   = element.width;
-    dom_height.value  = element.height;
-    dom_mines.value   = element.mines;
+                dom_id      .value  = element.id;
+                dom_width   .value  = element.width;
+                dom_height  .value  = element.height;
+                dom_mines   .value  = element.mines;
+                
+                dom_row.addEventListener(
+                    "click",
+                    e => {
+                    nxt.style.visibility = "visible";
+                    nxt.attributes.href=`gameplay.html?newGame=True&id=${element.id}`;
+                });
 
-    addElem(row,dom_id);
-    addElem(row,dom_width);
-    addElem(row,dom_height);
-    addElem(row,dom_mines);
-    addElem(tab_save,row);
-}
+                addElem(dom_row,dom_id);
+                addElem(dom_row,dom_width);
+                addElem(dom_row,dom_height);
+                addElem(dom_row,dom_mines);
+                addElem(tab_save,row);
+            });
+    }
+});
