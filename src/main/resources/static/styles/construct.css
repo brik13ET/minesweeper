@@ -73,7 +73,7 @@ input:checked + .slider:before {
 .row, .col
 {
     flex: 1;
-    gap: 1em;
+    gap: 2em;
     padding: 1em;
 }
 td
@@ -87,9 +87,13 @@ td
     margin: auto;
 }
 
-button
-{
+button {
+    width: 20px;
+    height: 70px;
     font: sans-serif 2em bold;
+    font-size: 20px;
     text-align: center;
     padding: 1em;
+    margin: 0 auto;
+    vertical-align: middle;
 }

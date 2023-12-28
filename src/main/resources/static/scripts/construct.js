@@ -1,6 +1,5 @@
 import { DB } from './pseudo.js'
 
-// localStorage.clear();
 var db = new DB();
 let uid = localStorage.getItem('user_id');
 if (uid != null){

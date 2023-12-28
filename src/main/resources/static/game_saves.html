@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1920px, initial-scale=1.0">
     <title>Сохранения</title>
     <link rel="stylesheet" href="styles/regDys.css">
     <script type="module" src="scripts/guard.js"></script>
-    
+    <script type="module" src="scripts/saves.js"></script>
+
 </head>
+
 <body style="padding: 1em;">
     <div class="center min-50vh container-col">
         <table id="game_saves">
-            <th>Название сохранения</th>
-            <th>Игрок</th>
-            <th>Режим игры</th>
-            <th>Процент открытых ячеек</th>
+            <tr>
+                <th>Название сохранения</th>
+                <th>Игрок</th>
+                <th>Сложность</th>
+                <th>Процент открытых ячеек</th>
+            </tr>
         </table>
 
         <div class="container-row bottom-0">
-            <a class="back" class="button">Назад</a>
-            <a class="next">Далее</a>
+            <a id="back" class="button">Назад</a>
+            <a id="next" class="button">Далее</a>
         </div>
     </div>
 </body>
+
 </html>

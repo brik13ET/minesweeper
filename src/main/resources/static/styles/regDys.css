@@ -1,6 +1,6 @@
 body {
     font-family: Tahoma;
-    background: #ff9999;
+    /* background: #ff9999; */
     background-size: cover;
     margin: 0;
     background-image: url(../img/pink.jpg);
@@ -19,19 +19,63 @@ table
     width: 100%;
 }
 
+td
+{
+    text-align: center;
+}
+
+tr
+{
+    font: 16pt sans-serif;
+}
+tr:hover
+{
+    background-color: #6c00ff !important;
+    color: #ddd !important;
+}
+
+tr:active
+{
+    background-color: #3d0093 !important;
+    color: #ffffff !important;
+}
+
+tr:nth-of-type(3n + 0)
+{
+    background-color: #b4a9f9;
+    color: #000;
+}
+
+tr:nth-of-type(3n + 1)
+{
+    background-color: #a9bef9;
+    color: #000;
+}
+
+tr:nth-of-type(3n + 2)
+{
+    background-color: #d4a9f9;
+    color: #000;
+}
+
 .min-50vh
 {
     min-height: 50vh;
 }
 
-.container-col
+.container-col,
+.container-row
 {
     display: flex;
+    gap: 1em;
+}
+
+.container-col
+{
     flex-direction: column;
 }
 .container-row
 {
-    display: flex;
     flex-direction: row;
 }
 .bottom-0

@@ -1,16 +1,15 @@
 package tp.minesweeper.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.ParameterOutOfBoundsException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import tp.minesweeper.dto.*;
-import tp.minesweeper.model.*;
-import tp.minesweeper.mapper.Mapper;
 import tp.minesweeper.service.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -19,14 +18,6 @@ public class APIController {
     private final CellService cellService;
     private final FieldService fieldService;
     private final UserService userService;
-
-    @Autowired
-    private final Mapper<GameField,GameFieldDto> gameFieldGameFieldDtoMapper;
-    @Autowired
-    private final Mapper<GameCell,GameCellDto> gameCellGameCellDtoMapper;
-    @Autowired
-    private final Mapper<UserCell,UserCellDto> userCellUserCellDtoMapper;
-
 
     @GetMapping("/isUserExistsID")
     @ResponseBody
@@ -106,19 +97,24 @@ public class APIController {
     @ResponseBody
     ResponseEntity  newGameField(@RequestBody GameFieldRxDto field)
     {
-        GameField gameField = fieldService
-                .newGameFieldCells(
-                        field.getWidth(),
-                        field.getHeight(),
-                        field.getMines()
-                                .toArray(
-                                        new Boolean[
-                                                field.getWidth()*field.getHeight()
-                                                ]
-                                )
-                );
-        var ret = gameFieldGameFieldDtoMapper.map(gameField);
-        return new ResponseEntity(ret, HttpStatus.OK);
+        try
+        {
+            var gameField = fieldService
+                    .newGameFieldCells(
+                            field.getWidth(),
+                            field.getHeight(),
+                            field.getMines()
+                                    .toArray(
+                                            new Boolean[
+                                                    field.getWidth()*field.getHeight()
+                                                    ]
+                                    )
+                    );
+            return new ResponseEntity(gameField, HttpStatus.OK);
+        } catch (ParameterOutOfBoundsException exception)
+        {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
     @PostMapping("/newUser")
     @ResponseBody
@@ -139,10 +135,12 @@ public class APIController {
     }
 
     @GetMapping("/getGameMapsIds")
-    @ResponseBody
-    ResponseEntity  getGameMapsIds(String login)
+    List<Integer> getGameMapsIds(@RequestParam(defaultValue = "10") int MapsCount)
     {
-        return new ResponseEntity(HttpStatus.NOT_IMPLEMENTED);
+        var gms = fieldService.findAllGames();
+        return gms.stream()
+                        .map(gm -> gm.getId())
+                        .collect(Collectors.toList());
     }
 
     @GetMapping("/getUserSaves")
@@ -175,8 +173,12 @@ public class APIController {
 
     @GetMapping("/getGameFieldParams")
     @ResponseBody
-    ResponseEntity  getGameFieldParams()
+    ResponseEntity<GameFieldDto> getGameFieldParams(@RequestParam(name = "field_id") int gid)
     {
-        return new ResponseEntity(HttpStatus.NOT_IMPLEMENTED);
+         var gf = fieldService.findGameFieldById(gid);
+         if (gf.isEmpty())
+             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+         return new ResponseEntity<>( gf.get(), HttpStatus.OK);
+
     }
 }

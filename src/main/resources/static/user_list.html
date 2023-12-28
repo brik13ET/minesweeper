@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1920px, initial-scale=1.0">
-    <title>Выберите 1 игровое поле</title>
+    <title>Игроки</title>
     <link rel="stylesheet" href="styles/regDys.css">
-    <script src="scripts/main.js" type="module"></script>
+    <script type="module" src="scripts/main.js"></script>
     <script type="module" src="scripts/guard.js"></script>
 </head>
+
 <body style="padding: 1em;">
     <div class="center min-50vh container-col">
+        <h3>Выберите 1 игровое поле</h3>
         <table id="game_saves">
-            <th>Логин игрока</th>
-            <th>Пароль игрока</th>
-            
-        </table>
+            <tr>
+                <th>Логин игрока</th>
+                <th>Пароль игрока</th>
+            </tr>
 
+        </table>
         <div class="container-row bottom-0">
-            <a class="back" class="button">Назад</a>
+            <a id="back" class="button">Назад</a>
         </div>
     </div>
 </body>
+
 </html>

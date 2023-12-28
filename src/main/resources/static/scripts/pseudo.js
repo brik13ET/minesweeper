@@ -1,101 +1,4 @@
-export class Cell {
-    field_id = 0;
-    value = false;
-
-    constructor(field_id, value) {
-        this.field_id = field_id;
-        this.value = value;
-    }
-}
-
-export class GameField {
-    id = 0;
-    mines = 0;
-
-    constructor(db, id, width, height, mines) {
-        mines = Math.round(mines);
-        if (
-            width > 20 ||
-            width < 4 ||
-            height > 20 ||
-            height < 4 ||
-            mines > (width * height * 0.2)
-        ) {
-            console.log(width > 20);
-            console.log(width < 4);
-            console.log(height > 20);
-            console.log(height < 4);
-            console.log(mines);
-            console.log((width * height * 0.2));
-            throw new Error("Один из параметров поля не находится в диапазоне");
-        }
-        this.id = id;
-        this.width = width;
-        this.height = height;
-        this.mines = mines;
-        this.data = new Array(width * height);
-        for (let i = 0; i < this.data.length; i++) {
-            this.data[i] = new Cell(this.id, i < mines);
-        }
-        this.data.sort(() => 0.5 - Math.random()); //shuffle array
-        db.map_cells[id] = this.data;
-    }
-
-    getId() {
-        return this.id;
-    }
-    getElem(x, y) {
-        if (0 > x || width < x || 0 > y || height < y) {
-            throw new Error('Выбрана ячейка вне диапазона');
-        }
-        return data[y * this.width + x];
-    }
-}
-
-export class UserField {
-    id = 0;
-    mines = 0;
-    original = 0;
-    player = 0;
-
-    getId() {
-        return this.id;
-    }
-    getElem(x, y) {
-        if (0 > x || width < x || 0 > y || height < y) {
-            throw new Error('Выбрана ячейка вне диапазона');
-        }
-        return data[y * this.width + x];
-    }
-}
-
-export class User {
-    id = 0;
-    login = "";
-    password = "";
-    saves = [];
-
-    constructor(id, login, password) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-    }
-
-}
-
 export class DB {
-    /*
-    Get /isUserExists
-    Get /isFieldExists
-    Get /isCorrectPass
-    Get /make_coffee
-    Get /getGameMapsIds
-    Get /getUserSaves
-    Get /getUserCell
-    Get /getUserLogin
-    Get /getUserId
-    Get /getGameFieldParams
-    */
     async isFieldExists(field_id) {
         let responce = await fetch(`isFieldExists?field_id=${field_id}`);
         return await responce.json();
@@ -156,7 +59,7 @@ export class DB {
             }
         });
         
-        return await responce.status();
+        return await responce.ok;
     }
 
     async newUserField(field_id, user_id) {
@@ -187,8 +90,8 @@ export class DB {
         return await responce.json();
     }
 
-    async getGameFieldParams(field_id) {
-        let responce = await fetch(`getGameFieldParams?field_id=%{field_id}`);
+    async getGameField(field_id) {
+        let responce = await fetch(`getGameFieldParams?field_id=${field_id}`);
         let data = await responce.json();
         return {
             id:     data.id,

@@ -1,6 +1,7 @@
 package tp.minesweeper.model;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +19,6 @@ public class UserFieldId implements Serializable {
     protected GameField gameField;
 
     @Getter
-    @OneToOne(targetEntity = User.class)
+    @ManyToOne(targetEntity = User.class)
     protected User user;
 }

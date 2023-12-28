@@ -16,22 +16,14 @@
                 <input type="button" id="autoFill" value="Автоматически заполненить">
             </div>
             <div class="row">
-                <label for="map_width">Ширина игрового поля</label>
-                <input min="4" max="20" type="range" name="map_width" id="map_width"
-                    oninput="this.nextElementSibling.value = this.value">
-                <output id="widthValue"></output>
-            </div>
-            <div class="row">
-                <label for="map_height">Высота игрового поля</label>
-                <input min="4" max="20" type="range" name="map_height" id="map_height"
-                    oninput="this.nextElementSibling.value = this.value">
-                <output id="heightValue"></output>
-            </div>
-            <div class="row">
-                <label for="map_mines">Количество мин</label>
-                <input min="4" max="20" type="range" name="map_mines" id="map_mines"
-                    oninput="this.nextElementSibling.value = this.value">
-                <output id="minesValue"></output>
+                <label for="Уровень сложности">Уровень сложности</label>
+                <select name="Уровень сложности" id="difficulty">
+                    <option value="easy">Легко</option>
+                    <option value="medium">Средне</option>
+                    <option value="hard">Сложно</option>
+                </select>
+            
+            
                 <table id="gameBoard"></table>
             </div>
             <div class="row">
