@@ -9,23 +9,15 @@ import java.util.Arrays;
 @Entity
 @Table(name = "game_field")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class GameField {
 
     @Id
-    @GeneratedValue()
-    @Getter
+    @GeneratedValue
     protected int id;
-
-    @Getter
     protected int width;
-
-    @Getter
     protected int height;
-
-
-    @Getter
     protected int mines;
-
     @Builder
     public GameField(
         int width,

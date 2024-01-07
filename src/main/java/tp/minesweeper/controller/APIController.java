@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import tp.minesweeper.dto.*;
+import tp.minesweeper.model.Difficulty;
 import tp.minesweeper.service.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class APIController {
     private final CellService cellService;
     private final FieldService fieldService;
     private final UserService userService;
+    private final DifficultyService difficultyService;
 
     @GetMapping("/isUserExistsID")
     @ResponseBody
@@ -29,7 +31,12 @@ public class APIController {
         );
     }
 
-
+    @GetMapping("/getUsers")
+    @ResponseBody
+    ResponseEntity getUsers()
+    {
+        return new ResponseEntity(userService.findAll(), HttpStatus.OK);
+    }
 
     @GetMapping("/isUserExists")
     @ResponseBody
@@ -180,5 +187,35 @@ public class APIController {
              return new ResponseEntity<>(HttpStatus.NOT_FOUND);
          return new ResponseEntity<>( gf.get(), HttpStatus.OK);
 
+    }
+
+    @GetMapping("/getDifficulty")
+    @ResponseBody
+    ResponseEntity<DifficultyDto> getDifficulty(@RequestParam(name = "no") Integer difficulty)
+    {
+        if (difficulty >= 3 || difficulty < 0)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        var val = difficultyService.getDifficulty(difficulty);
+        if (val.isEmpty())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        var act_val = val.get();
+        return new ResponseEntity<>(act_val, HttpStatus.OK);
+    }
+    @GetMapping("/getDifficultyAll")
+    @ResponseBody
+    ResponseEntity<List<DifficultyDto>> getDifficultyAll()
+    {
+        var val = difficultyService.getDifficultyAll();
+        return new ResponseEntity<>(val, HttpStatus.OK);
+    }
+
+    @PutMapping("/setDifficulty")
+    @ResponseBody
+    ResponseEntity setDifficulty(DifficultyDto difficulty)
+    {
+        if (difficulty.getId() >= 3 || difficulty.getId() < 0)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        difficultyService.setDifficulty(difficulty);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

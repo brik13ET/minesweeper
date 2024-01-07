@@ -3,17 +3,17 @@ package tp.minesweeper.service;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tp.minesweeper.dto.GameCellDto;
 import tp.minesweeper.dto.GameFieldDto;
-import tp.minesweeper.dto.UserCellDto;
 import tp.minesweeper.mapper.Mapper;
 import tp.minesweeper.model.*;
+import tp.minesweeper.repository.DifficultyRepository;
 import tp.minesweeper.repository.GameCellRepository;
 import tp.minesweeper.repository.GameFieldRepository;
 import tp.minesweeper.repository.UserFieldRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
+import static java.util.Optional.empty;
 
 @Service
 @AllArgsConstructor
@@ -21,23 +21,18 @@ public class FieldService {
     private final GameFieldRepository gameFieldRepository;
     private final UserFieldRepository userFieldRepository;
     private final GameCellRepository gameCellRepository;
+    private final DifficultyRepository difficultyRepository;
 
 
     @Autowired
-    private final Mapper<GameField,GameFieldDto> gameFieldGameFieldDtoMapper;
+    Mapper<GameFieldDto, GameField>  gameFieldDtoToEntity;
     @Autowired
-    private final Mapper<GameCell, GameCellDto> gameCellGameCellDtoMapper;
-    @Autowired
-    private final Mapper<UserCell, UserCellDto> userCellUserCellDtoMapper;
+    Mapper<GameField, GameFieldDto> gameFieldEntityToDto;
 
     public Optional<GameFieldDto> findGameFieldById(Integer id) {
         return gameFieldRepository.findById(id)
-                .map(
-                        gameField ->
-                                gameFieldGameFieldDtoMapper.map(
-                                        gameField
-                                )
-                );
+                .map(gameFieldEntityToDto::map)
+                .filter(obj -> obj != null);
     }
 //    Optional<UserField> findByGameFieldAndUser(GameField gfield, User usr)
 //    {
@@ -53,18 +48,16 @@ public class FieldService {
         return gameFieldRepository
                 .findAll()
                 .stream()
-                .map( gf -> gameFieldGameFieldDtoMapper.map(gf) )
+                .map(gameFieldEntityToDto::map)
                 .toList();
     }
 
     public GameField newGameField(int width, int height, int mines)
     {
-        var ret = gameFieldRepository.save(new GameField(width, height, mines));
-        return ret;
+        return gameFieldRepository.save(new GameField(width, height, mines));
     }
 
-    public GameFieldDto newGameFieldCells(int width, int height, Boolean[] cells)
-    {
+    public GameFieldDto newGameFieldCells(int width, int height, Boolean[] cells){
         int pCount = (int)Arrays.stream(cells).filter( aBoolean -> aBoolean ).count();
         var gf = gameFieldRepository.save(new GameField(width, height, pCount));
         for (int i = 0; i < cells.length; i++)
@@ -82,6 +75,6 @@ public class FieldService {
                 .build();
             gameCellRepository.save(elem);
         }
-        return gameFieldGameFieldDtoMapper.map(gf);
+        return gameFieldEntityToDto.map(gf);
     }
 }

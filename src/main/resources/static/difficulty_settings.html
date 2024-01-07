@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1920, initial-scale=1.0">
@@ -7,37 +8,47 @@
     <script src="scripts/main.js" type="module"></script>
     <link rel="stylesheet" href="styles/regDys.css">
     <script type="module" src="scripts/guard.js"></script>
+    <script type="module" src="scripts/difset.js"></script>
 </head>
+
 <body>
     <h1 title="Форма уровня сложности">Настройка уровня сложности</h1>
     <div style="margin: auto; display: flex; flex-direction: column; width: 50%; gap: 1em; padding: 2em;">
-        <div style="display: flex; flex-direction: row; gap: 2em; justify-content: left">
-            <label for="map_diff">Уровень сложности</label>
-            <input min="0" max="3" type="range" name="map_diff" id="map_diff" oninput="this.nextElementSibling.value = this.value">
-            <output></output>
+        <div style="margin: auto; display: flex;  width: 50%; gap: 1em; padding: 2em;">
+            <label for="Уровень сложности">Уровень сложности</label>
+            <select name="Уровень сложности" id="difficulty">
+                <option value="0">Легко  </option>
+                <option value="1">Средне </option>
+                <option value="2">Сложно </option>
+            </select>
         </div>
         <div style="display: flex; flex-direction: row; gap: 2em; justify-content: left">
             <label for="map_width">Ширина игрового поля</label>
-            <input min="4" max="20" type="range" name="map_width" id="map_width" oninput="this.nextElementSibling.value = this.value">
+            <input min="4" max="20" type="range" name="map_width" id="map_width"
+                oninput="this.nextElementSibling.value = this.value">
             <output></output>
         </div>
         <div style="display: flex; flex-direction: row; gap: 2em; justify-content: left">
             <label for="map_height">Высота игрового поля</label>
-            <input min="4" max="20" type="range" name="map_height" id="map_height" oninput="this.nextElementSibling.value = this.value">
+            <input min="4" max="20" type="range" name="map_height" id="map_height"
+                oninput="this.nextElementSibling.value = this.value">
             <output></output>
         </div>
         <div style="display: flex; flex-direction: row; gap: 2em; justify-content: left">
             <label for="map_mines">Количество мин</label>
-            <input min="4" max="20" type="range" name="map_mines" id="map_mines" oninput="this.nextElementSibling.value = `${this.value}%`">
+            <input min="4" max="20" type="range" name="map_mines" id="map_mines"
+                oninput="this.nextElementSibling.value = `${this.value}%`">
             <output></output>
         </div>
         <div style="display: flex; flex-direction: row; gap: 2em; justify-content: left">
             <label for="lifes">Количество жизней</label>
-            <input min="0" max="3" type="range" name="lifes" id="lifes" oninput="this.nextElementSibling.value = `${this.value}`">
+            <input min="1" max="3" type="range" name="lifes" id="lifes"
+                oninput="this.nextElementSibling.value = `${this.value}`">
             <output></output>
         </div>
-        <a class="button" class="back" id="Save_map"> Сохранить </a>
+        <a class="button" id="Save_dif"> Сохранить </a>
         <a id="back" class="button">Назад</a>
     </div>
 </body>
+
 </html>

@@ -11,51 +11,43 @@ if (uid != null){
 else
     throw "bad user id. redirect";
 
-var widthSlider = document.getElementById("map_width" );
-var heightSlider= document.getElementById("map_height");
-var minesSlider = document.getElementById("map_mines" );
+var difficulty  = document.getElementById("difficulty");
 var autoFill    = document.getElementById("autoFill"  );
 var gameBoard   = document.getElementById("minefield" );
 var save        = document.getElementById("save"      );
 var back        = document.getElementById("back"      );
 
-if (widthSlider)
-    widthSlider .addEventListener("input" ,updateWidthValue  );
-if (heightSlider)
-    heightSlider.addEventListener("input" ,updateHeightValue );
-if (minesSlider)
-    minesSlider .addEventListener("input" ,updateMinesValue  );
+if (difficulty)
+    difficulty  .addEventListener("change",updateDifficulty  );
 if (autoFill)
     autoFill    .addEventListener("click", autofillMines     );
 if (save)
     save        .addEventListener("click", sendBoard         );
 if (back)
     back        .addEventListener("click", () => { history.back(); });
+var width = 10, height = 10, mines = 20;
+db.getDifficulty(difficulty.value)
+    .then(
+        resp =>
+        {
+            width = resp.width ;
+            height= resp.height;
+            mines = resp.mines ;
+});
 
-var numOfMines= 10;
-var width     = 10;
-var height    = 10;
 var logical_minefield = new Array(width*height).fill(false);
+updateDifficulty();
 
-function updateWidthValue() {
-    document.getElementById("widthValue").textContent = widthSlider.value;
-    width = parseInt(widthSlider.value);
-    logical_minefield = new Array(width*height).fill(false);
-    draw_minefield();
-}
-
-function updateHeightValue() {
-    document.getElementById("heightValue").textContent = heightSlider.value;
-    height = parseInt(heightSlider.value);
-    logical_minefield = new Array(width*height).fill(false);
-    draw_minefield();
-}
-
-function updateMinesValue() {
-    document.getElementById("minesValue").textContent = minesSlider.value;
-    numOfMines = parseInt(minesSlider.value);
-    logical_minefield = new Array(width*height).fill(false);
-    draw_minefield();
+function updateDifficulty() {
+    db.getDifficulty(difficulty.value)
+        .then(
+            resp => {
+                width = resp.width ;
+                height= resp.height;
+                mines = resp.mines ;
+                logical_minefield = new Array(width*height).fill(false);
+                draw_minefield();
+    });
 }
 
 function shuffleArray(array) {
@@ -91,7 +83,7 @@ function draw_minefield()
 }
 
 export function autofillMines() {
-    var plantedCells = width*height*(numOfMines/100);
+    var plantedCells = width*height*(mines/100);
     for (let i = 0; i < logical_minefield.length; i++) {
         logical_minefield[i] = i < plantedCells;
     }

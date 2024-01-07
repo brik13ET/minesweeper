@@ -100,4 +100,31 @@ export class DB {
             mines:  data.mines
         };
     }
+
+    async getDifficulty(dif_no)
+    {
+        let responce = await fetch(`getDifficulty?no=${dif_no}`);
+        let data = await responce.json();
+        return data;
+        // return {
+        //     width:  data.width,
+        //     height: data.height,
+        //     mines:  data.mines,
+        //     lives: data.lives
+        // }
+    }
+
+    async getDifficultyAll()
+    {
+        let responce = await fetch(`getDifficultyAll`);
+        let data = await responce.json();
+        return data;
+    }
+    async setDifficulty(no,name,width,height,mines,lives){
+        let responce = await fetch(`setDifficulty?id=${no}&name=${name}&width=${width}&height=${height}&mines=${mines}&lives=${lives}`,{
+            method: "PUT"
+        });
+        let data = await responce.ok;
+        return data;
+    }
 }
